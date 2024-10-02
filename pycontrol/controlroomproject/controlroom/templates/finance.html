@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+    {% if user.is_authenticated %}
+
+        <h1 class="text-3xl font-bold mb-6">Finance</h1>
+
+    {% else %}
+
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold mb-6">Diary - Login or Register</h1>
+            <br/>
+            <p>Register <a href="{% url 'register_user' %}">Here</a> or Login <a href="{% url 'login_user' %}">Here</a></p>
+        </div>
+
+    {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Welcome to Control Room</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a href="{% url 'diary' %}" class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 transition duration-300">
+                <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Diary</h2>
+                <p class="font-normal text-gray-700">Track your daily activities and thoughts.</p>
+            </a>
+            
+            <a href="{% url 'finance' %}" class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 transition duration-300">
+                <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Finance</h2>
+                <p class="font-normal text-gray-700">Manage your personal finances and budgets.</p>
+            </a>
+            
+            <a href="{% url 'movies' %}" class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 transition duration-300">
+                <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Movies</h2>
+                <p class="font-normal text-gray-700">Browse and manage your movie collection.</p>
+            </a>
+            
+            <a href="{% url 'tv' %}" class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 transition duration-300">
+                <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">TV Shows</h2>
+                <p class="font-normal text-gray-700">Explore your TV show library and episodes.</p>
+            </a>
+        </div>
+    </div>
+{% else %}
+
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Welcome, please Login or Register </h1>
+    </div>
+
+{% endif %}
+
+
+{% endblock content %}

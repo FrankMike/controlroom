@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">My Diary</h1>
+
+        <!-- Button to add new entry -->
+        <a href="{% url 'add_entry' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-8 inline-block">
+            Add New Entry
+        </a>
+
+        <!-- List of diary entries -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Diary Entries</h2>
+            {% for entry in entries %}
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-4">
+                    <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            {{ entry.date|date:"F d, Y" }} - {{ entry.title }}
+                        </h3>
+                        <div>
+                            <a href="{% url 'edit_entry' entry.id %}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded mr-2">
+                                Edit
+                            </a>
+                            <form method="post" action="{% url 'delete_entry' entry.id %}" class="inline-block">
+                                {% csrf_token %}
+                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded" onclick="return confirm('Are you sure you want to delete this entry?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200">
+                        <div class="px-4 py-5 sm:p-6">
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                {{ entry.content }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-gray-500">No entries yet. Start writing your diary!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+{% else %}
+
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Diary - Login or Register</h1>
+        <br/>
+        <p>Register <a href="{% url 'register_user' %}">Here</a> or Login <a href="{% url 'login_user' %}">Here</a></p>
+    </div>
+
+{% endif %}
+
+{% endblock content %}

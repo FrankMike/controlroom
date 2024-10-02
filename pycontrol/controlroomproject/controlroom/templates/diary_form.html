@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+    <div class="max-w-2xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+      <h1 class="text-3xl font-bold mb-6 text-gray-800">{{ action }} Diary Entry</h1>
+      <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'diary' %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  {% else %}
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold mb-6">Diary - Login or Register</h1>
+      <br/>
+      <p>Register <a href="{% url 'register_user' %}">Here</a> or Login <a href="{% url 'login_user' %}">Here</a></p>
+    </div>
+  {% endif %}
+  
+{% endblock %}
