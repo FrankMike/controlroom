@@ -4,6 +4,7 @@ from django.utils import timezone
 
 
 class DiaryEntry(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField()  # Changed from DateField to DateTimeField
     title = models.CharField(max_length=120, null=False, default="")
