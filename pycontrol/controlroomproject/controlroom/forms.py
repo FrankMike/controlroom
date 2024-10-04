@@ -1,5 +1,5 @@
 from django import forms
-from .models import DiaryEntry
+from .models import DiaryEntry, Transaction
 
 
 class DiaryEntryForm(forms.ModelForm):
@@ -9,3 +9,14 @@ class DiaryEntryForm(forms.ModelForm):
         widgets = {
             "date": forms.DateInput(attrs={"type": "date"}),
         }
+
+
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = [
+            "description",
+            "amount",
+            "transaction_type",
+            "date",
+        ]

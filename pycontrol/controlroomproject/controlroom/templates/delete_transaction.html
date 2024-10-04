@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4 ml-4">Delete Transaction</h1>
+    <p class="mb-4 ml-4">Are you sure you want to delete "{{ transaction.description }}"?</p>
+    <form method="post" class="bg-white p-6 rounded shadow-md">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Confirm Delete</button>
+        <a href="{% url 'finance' %}" class="text-blue-500 hover:underline">Cancel</a>
+    </form>
+{% endblock %}

@@ -6,7 +6,7 @@ from django.utils import timezone
 class DiaryEntry(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField()  # Changed from DateField to DateTimeField
+    date = models.DateTimeField()
     title = models.CharField(max_length=120, null=False, default="")
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,7 +26,7 @@ class Transaction(models.Model):
     transaction_type = models.CharField(
         max_length=10, choices=[("expense", "Expense"), ("income", "Income")]
     )
-    date = models.DateTimeField()  # Removed auto_now_add=True
+    date = models.DateTimeField(default=timezone.now)  # Ensure this is set
 
     def __str__(self):
         return f"{self.description} - {self.amount}"

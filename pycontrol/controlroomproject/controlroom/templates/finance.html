@@ -5,46 +5,57 @@
     {% if user.is_authenticated %}
 
         <div class="container mx-auto px-4 py-8">
-            <h1 class="text-3xl font-bold mb-6">Finance</h1>
+            <h1 class="text-3xl font-bold mb-6">Personal Finance</h1>
             
-            <!-- Add transaction form -->
-            <form method="post" action="{% url 'add_transaction' %}" class="mb-8">
-                {% csrf_token %}
+            <div class="bg-white shadow-md rounded-lg p-6 mb-8">
                 <div class="flex space-x-4">
-                    <input type="text" name="description" placeholder="Description" required class="flex-grow p-2 border rounded">
-                    <input type="number" name="amount" placeholder="Amount" step="0.01" required class="w-32 p-2 border rounded">
-                    <select name="transaction_type" required class="p-2 border rounded">
-                        <option value="expense">Expense</option>
-                        <option value="income">Income</option>
-                    </select>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add</button>
+                    <!-- Add transaction form -->
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold mb-4">Add Transaction</h2>
+                        <form method="post" action="{% url 'add_transaction' %}" class="mb-8">
+                            {% csrf_token %}
+                            <div class="flex space-x-4">
+                                <input type="text" name="description" placeholder="Description" required class="flex-grow p-2 border rounded">
+                                <input type="number" name="amount" placeholder="Amount" step="0.01" required class="w-32 p-2 border rounded">
+                                <select name="transaction_type" required class="p-2 border rounded">
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                                </select>
+                                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Summary -->
+                    <div class="flex-1 border-l pl-4">
+                        <h2 class="text-xl font-bold mb-4">Summary</h2>
+                        <p>Total Incomes: <span class="text-green-500">${{ total_incomes }}</span></p>
+                        <p>Total Expenses: <span class="text-red-500">${{ total_expenses }}</span></p>
+                        <p>Balance: <span class="{% if balance >= 0 %}text-green-500{% else %}text-red-500{% endif %}">${{ balance }}</span></p>
+                    </div>
                 </div>
-            </form>
+            </div>
 
             <!-- Transaction list -->
-            <h2 class="text-2xl font-bold mb-4">Recent Transactions</h2>
+            <h2 class="text-2xl font-bold mb-4 mt-8">Recent Transactions</h2>
             <ul>
                 {% for transaction in transactions %}
-                    <li class="mb-2">
-                        {{ transaction.description }} - 
+                    <li class="mb-2 flex items-center justify-between">
+                        <span class="text-gray-500">{{ transaction.date|date:"Y-m-d" }}</span> 
+                        {{ transaction.description }} 
                         {% if transaction.transaction_type == 'expense' %}
                             <span class="text-red-500">-${{ transaction.amount }}</span>
                         {% else %}
                             <span class="text-green-500">+${{ transaction.amount }}</span>
                         {% endif %}
+                        <div class="space-x-2">
+                            <a href="{% url 'edit_transaction' transaction.id %}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Edit</a>
+                            <a href="{% url 'delete_transaction' transaction.id %}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</a>
+                        </div>
                     </li>
                 {% empty %}
                     <li>No transactions yet.</li>
                 {% endfor %}
             </ul>
-
-            <!-- Summary -->
-            <div class="mt-8">
-                <h2 class="text-2xl font-bold mb-4">Summary</h2>
-                <p>Total Incomes: <span class="text-green-500">${{ total_incomes }}</span></p>
-                <p>Total Expenses: <span class="text-red-500">${{ total_expenses }}</span></p>
-                <p>Balance: <span class="{% if balance >= 0 %}text-green-500{% else %}text-red-500{% endif %}">${{ balance }}</span></p>
-            </div>
         </div>
 
     {% else %}

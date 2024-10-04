@@ -3,14 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.conf import settings
 from django.db.models import Sum
-from .models import DiaryEntry, Transaction
-from .forms import DiaryEntryForm
 import logging
 
 logger = logging.getLogger(__name__)
 
 from .models import DiaryEntry, Transaction
-from .forms import DiaryEntryForm
+from .forms import DiaryEntryForm, TransactionForm
 
 
 # Create your views here.
@@ -126,3 +124,31 @@ def add_transaction(request):
             transaction_type=request.POST["transaction_type"],
         )
     return redirect("finance")
+
+
+@login_required
+def edit_transaction(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+
+    if request.method == "POST":
+        form = TransactionForm(request.POST, instance=transaction)
+        if form.is_valid():
+            form.save()
+            return redirect(
+                "finance"
+            )  # Redirect to the finance page or wherever you want
+    else:
+        form = TransactionForm(instance=transaction)
+
+    return render(request, "edit_transaction.html", {"form": form})
+
+
+@login_required
+def delete_transaction(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+
+    if request.method == "POST":
+        transaction.delete()
+        return redirect("finance")  # Redirect after deletion
+
+    return render(request, "delete_transaction.html", {"transaction": transaction})
