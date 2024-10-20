@@ -134,9 +134,7 @@ def edit_transaction(request, transaction_id):
         form = TransactionForm(request.POST, instance=transaction)
         if form.is_valid():
             form.save()
-            return redirect(
-                "finance"
-            )  # Redirect to the finance page or wherever you want
+            return redirect("finance")
     else:
         form = TransactionForm(instance=transaction)
 
@@ -149,6 +147,6 @@ def delete_transaction(request, transaction_id):
 
     if request.method == "POST":
         transaction.delete()
-        return redirect("finance")  # Redirect after deletion
+        return redirect("finance")
 
     return render(request, "delete_transaction.html", {"transaction": transaction})
