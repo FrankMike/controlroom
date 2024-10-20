@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("controlroom.urls"), name="controlroom"),
     path("authenticate/", include("authentication.urls"), name="authentication"),
+    path("media/", include("media.urls"), name="media"),
 ]
