@@ -117,6 +117,51 @@ function updateSortIndicators() {
     });
 }
 
+async function updateMovies() {
+    try {
+        console.log("Updating movies...");
+        showLoading();
+        const response = await fetch('/media/update_movies/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json',
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("Update response:", data);
+        
+        // Update the movie list with the new data
+        allMovies = data.movies;
+        displayMovies(allMovies);
+        updateCollectionInfo(data.totalMovies, data.totalSize);
+    } catch (error) {
+        console.error("Error updating movies:", error);
+        alert(`Error updating movies: ${error.message}. Please try again later.`);
+    } finally {
+        hideLoading();
+    }
+}
+
+// Helper function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     fetchMovies();
 
@@ -127,4 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add event listener for search input
     document.getElementById("search-input").addEventListener("input", searchMovies);
+
+    // Add event listener for update movies button
+    const updateMoviesButton = document.getElementById('update-movies');
+    if (updateMoviesButton) {
+        updateMoviesButton.addEventListener('click', updateMovies);
+    }
 });
