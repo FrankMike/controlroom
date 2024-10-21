@@ -15,3 +15,16 @@ class Movie(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.year})"
+
+
+class TVShow(models.Model):
+    plex_rating_key = models.CharField(max_length=50, unique=True)
+    title = models.CharField(max_length=255)
+    year = models.IntegerField(null=True, blank=True)
+    seasons = models.IntegerField(default=0)
+    episodes = models.IntegerField(default=0)
+    file_size_gb = models.FloatField(default=0)
+    season_details = models.JSONField(default=list)
+
+    def __str__(self):
+        return self.title

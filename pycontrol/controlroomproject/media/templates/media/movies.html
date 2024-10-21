@@ -58,6 +58,23 @@
         </div>
 
         <script src="{% static 'js/movies.js' %}"></script>
+        <script>
+            // Back to top button
+            const btnBackToTop = document.getElementById('btn-back-to-top');
+
+            window.onscroll = function() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    btnBackToTop.classList.remove('hidden');
+                } else {
+                    btnBackToTop.classList.add('hidden');
+                }
+            };
+
+            btnBackToTop.addEventListener('click', function() {
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            });
+        </script>
     </div>
 {% else %}
     <div class="container mx-auto px-4 py-8">
