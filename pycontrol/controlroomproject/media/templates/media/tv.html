@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+
+    <div class="container mx-auto px-4">
+        <br />
+        <h1 class="text-3xl font-bold text-center mb-6">Plex TV Show Library</h1>
+
+        <!-- Display the number of TV shows, total size, and update button -->
+        <div class="flex justify-between items-center mb-4">
+            <div id="collection-info">
+                <p>Total TV Shows: <span id="show-count" class="font-semibold">0</span></p>
+                <p>Total Size: <span id="total-size" class="font-semibold">0</span> TB</p>
+            </div>
+            <button id="update-tvshows" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Update TV Shows
+            </button>
+        </div>
+
+        <!-- Search input field -->
+        <div class="mb-4">
+            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md" id="search-input" placeholder="Search TV shows...">
+        </div>
+
+        <button type="button" class="fixed bottom-4 right-4 bg-blue-500 text-white p-2 rounded-full shadow-lg hidden" id="btn-back-to-top">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+            </svg>
+        </button>
+
+        <!-- Table to display TV show details -->
+        <div class="overflow-x-auto">
+            <table class="w-full table-auto border-collapse" id="show-table">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 text-left"></th> <!-- For dropdown toggle -->
+                        <th class="sort-header px-4 py-2 text-left cursor-pointer" data-sort="title">Title</th>
+                        <th class="sort-header px-4 py-2 text-left cursor-pointer" data-sort="year">Year</th>
+                        <th class="sort-header px-4 py-2 text-left cursor-pointer" data-sort="seasons">Seasons</th>
+                        <th class="sort-header px-4 py-2 text-left cursor-pointer" data-sort="episodes">Episodes</th>
+                        <th class="sort-header px-4 py-2 text-left cursor-pointer" data-sort="fileSizeGB">Total Size (GB)</th>
+                    </tr>
+                </thead>
+                <tbody id="show-list">
+                    <!-- TV show details will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <script src="{% static 'js/tvshows.js' %}"></script>
+    </div>
+{% else %}
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Diary - Login or Register</h1>
+        <br/>
+        <p>Register <a href="{% url 'register_user' %}">Here</a> or Login <a href="{% url 'login_user' %}">Here</a></p>
+    </div>
+{% endif %}
+{% endblock content %}

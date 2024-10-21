@@ -49,24 +49,6 @@ def finance(request):
 
 
 @login_required
-def movies(request):
-    context = {
-        "plex_token": settings.PLEX_TOKEN,
-        "plex_url": settings.PLEX_URL,
-    }
-    return render(request, "moviecollection.html", context)
-
-
-@login_required
-def tv(request):
-    context = {
-        "plex_token": settings.PLEX_TOKEN,
-        "plex_url": settings.PLEX_URL,
-    }
-    return render(request, "tv.html", context)
-
-
-@login_required
 def add_entry(request):
     if request.method == "POST":
         form = DiaryEntryForm(request.POST)
