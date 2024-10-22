@@ -23,4 +23,6 @@ urlpatterns = [
     path("", include("controlroom.urls"), name="controlroom"),
     path("authenticate/", include("authentication.urls"), name="authentication"),
     path("media/", include("media.urls"), name="media"),
+    path("finance/", include("finance.urls"), name="finance"),
+    path("diary/", include("diary.urls"), name="diary"),
 ]

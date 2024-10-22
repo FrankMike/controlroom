@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "controlroom",
     "authentication",
     "media",
+    "finance",
+    "diary",
 ]
 
 MIDDLEWARE = [
