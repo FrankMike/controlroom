@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-from .forms import RegisterUserForm
+from django.contrib.auth.models import User
+from .forms import RegisterUserForm, UserProfileForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 def login_user(request):
@@ -27,7 +28,7 @@ def logout_user(request):
 
 def register_user(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegisterUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -35,11 +36,49 @@ def register_user(request):
             return redirect("home")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     else:
-        form = UserCreationForm()
-
-    # Add placeholders to form fields
-    form.fields["username"].widget.attrs["placeholder"] = "Enter your username"
-    form.fields["password1"].widget.attrs["placeholder"] = "Enter your password"
-    form.fields["password2"].widget.attrs["placeholder"] = "Confirm your password"
+        form = RegisterUserForm()
 
     return render(request, "authenticate/register_user.html", {"form": form})
+
+
+@login_required
+def profile(request):
+    return render(request, "authenticate/profile.html", {"user": request.user})
+
+
+@login_required
+def edit_profile(request):
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your profile has been updated.")
+            return redirect("profile")
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, "authenticate/edit_profile.html", {"form": form})
+
+
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Your password was successfully updated!")
+            return redirect("profile")
+        else:
+            messages.error(request, "Please correct the error below.")
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, "authenticate/change_password.html", {"form": form})
+
+
+@login_required
+def delete_account(request):
+    if request.method == "POST":
+        request.user.delete()
+        messages.success(request, "Your account has been deleted.")
+        return redirect("home")
+    return render(request, "authenticate/delete_account.html")

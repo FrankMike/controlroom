@@ -17,7 +17,7 @@
                             <input type="{{ field.field.widget.input_type }}"
                                    name="{{ field.name }}"
                                    id="{{ field.id_for_label }}"
-                                   placeholder="{{ field.field.widget.attrs.placeholder }}"
+                                   placeholder="{{ field.label }}"
                                    class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 {% if forloop.first %}rounded-t-md{% elif forloop.last %}rounded-b-md{% endif %} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                    {% if field.field.required %}required{% endif %}>
                             {% if field.help_text %}

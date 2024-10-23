@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+    <div class="relative py-3 sm:max-w-xl sm:mx-auto">
+        <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+            <div class="max-w-md mx-auto">
+                <div>
+                    <h1 class="text-2xl font-semibold">Profile</h1>
+                </div>
+                <div class="divide-y divide-gray-200">
+                    <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                        <p><strong>Username:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                        <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    </div>
+                    <div class="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
+                        <p><a href="{% url 'edit_profile' %}" class="text-indigo-600 hover:text-indigo-500">Edit Profile</a></p>
+                        <p><a href="{% url 'change_password' %}" class="text-indigo-600 hover:text-indigo-500">Change Password</a></p>
+                        <p><a href="{% url 'delete_account' %}" class="text-red-600 hover:text-red-500">Delete Account</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
