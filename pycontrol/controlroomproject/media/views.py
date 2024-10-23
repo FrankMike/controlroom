@@ -8,6 +8,9 @@ import logging
 from media.management.commands.update_plex_movies import Command as update_plex_movies
 from media.management.commands.update_plex_tvshows import Command as update_plex_tvshows
 from .models import Movie, TVShow
+from rest_framework import generics, permissions
+from rest_framework.serializers import ModelSerializer
+from rest_framework.response import Response
 
 logger = logging.getLogger(__name__)
 
@@ -143,3 +146,37 @@ def update_tvshows(request):
     except Exception as e:
         logger.error(f"Error updating TV shows: {str(e)}")
         return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+
+class MovieSerializer(ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = "__all__"
+
+
+class TVShowSerializer(ModelSerializer):
+    class Meta:
+        model = TVShow
+        fields = "__all__"
+
+
+class MovieListAPIView(generics.ListAPIView):
+    queryset = Movie.objects.all().order_by("title")
+    serializer_class = MovieSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({"movies": serializer.data})
+
+
+class TVShowListAPIView(generics.ListAPIView):
+    queryset = TVShow.objects.all().order_by("title")
+    serializer_class = TVShowSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({"tvshows": serializer.data})

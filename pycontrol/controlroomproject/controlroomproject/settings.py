@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "widget_tweaks",
+    "rest_framework",
+    "rest_framework.authtoken",
     "controlroom",
     "authentication",
     "media",
@@ -142,3 +144,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 PLEX_TOKEN = os.getenv("PLEX_TOKEN")
 PLEX_URL = os.getenv("PLEX_URL")
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
