@@ -37,17 +37,15 @@
 
             <!-- Transaction list -->
             <h2 class="text-2xl font-bold mb-4 mt-8">Recent Transactions</h2>
-            <ul>
+            <ul class="w-full">
                 {% for transaction in transactions %}
-                    <li class="mb-2 flex items-center justify-between">
-                        <span class="text-gray-500">{{ transaction.date|date:"Y-m-d" }}</span> 
-                        {{ transaction.description }} 
-                        {% if transaction.transaction_type == 'expense' %}
-                            <span class="text-red-500">-${{ transaction.amount }}</span>
-                        {% else %}
-                            <span class="text-green-500">+${{ transaction.amount }}</span>
-                        {% endif %}
-                        <div class="space-x-2">
+                    <li class="mb-2 grid grid-cols-5 items-center">
+                        <span class="text-gray-500">{{ transaction.date|date:"Y-m-d" }}</span>
+                        <span class="col-span-2">{{ transaction.description }}</span>
+                        <span class="text-right {% if transaction.transaction_type == 'expense' %}text-red-500{% else %}text-green-500{% endif %}">
+                            {% if transaction.transaction_type == 'expense' %}-{% else %}+{% endif %}${{ transaction.amount }}
+                        </span>
+                        <div class="space-x-2 text-right">
                             <a href="{% url 'edit_transaction' transaction.id %}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Edit</a>
                             <a href="{% url 'delete_transaction' transaction.id %}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</a>
                         </div>
