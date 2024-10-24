@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-&81^hs^ll6k942nd_h+dmisr_wxk3es7d$g0+2j3!gb7mqo0u="
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -144,6 +144,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 PLEX_TOKEN = os.getenv("PLEX_TOKEN")
 PLEX_URL = os.getenv("PLEX_URL")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
