@@ -1,6 +1,0 @@
-Django
-django-widget-tweaks
-python-dotenv
-requests
-djangorestframework
-gunicorn
