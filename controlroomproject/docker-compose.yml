@@ -4,8 +4,8 @@ services:
     command: gunicorn controlroomproject.wsgi:application -c controlroomproject/gunicorn_settings.py
     volumes:
       - .:/app
+      - ./staticfiles:/app/staticfiles
     ports:
       - "8000:8000"
     env_file:
       - .env
-    # network_mode: host
