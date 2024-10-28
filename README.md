@@ -1,38 +1,72 @@
 # PyControlRoom
 
-## Components
+A comprehensive personal dashboard that integrates various life management tools including financial tracking, personal diary, and Plex media management.
 
-- Authentication
-- Control Room (Main Page - Dashboard)
-- Financial Report
-- Diary
-- Plex Movie Collection
-- Plex TV Show Collection
+## Features
 
-### Control Room / Home
+- 🔐 **Authentication** - Secure user authentication system
+- 📊 **Control Room Dashboard** - Central hub for accessing all components
+- 💰 **Financial Report** - Personal finance tracking and analysis
+- 📝 **Diary** - Personal journal management
+- 💬 **Chat** - Chat using local LLM model
+- 🎬 **Plex Movie Collection** - Movie library management
+- 📺 **Plex TV Show Collection** - TV series library management
 
-Home page with cards that connect to the different applications
+## Installation
+
+**Clone the repository**
+
+```sh
+git clone https://github.com/yourusername/pycontrolroom.git
+```
+
+**Navigate to the project directory**
+
+```sh
+cd pycontrolroom
+```
+
+**Install dependencies**
+
+```sh
+pip install -r requirements.txt
+```
+
+## Component Details
+
+### Control Room Dashboard
+The central hub of the application featuring:
+- Quick access cards to all components
+- Overview widgets for key information
+- Customizable dashboard layout
 
 ### Financial Report
-
-A Personal finance application that helps you take control of your personal finance. 
-Gives you the possibility to track your expenses and incomes.
-Check monthly and yearly expenses and incomes reports.
+Track and manage your personal finances with:
+- Income and expense tracking
+- Monthly and yearly financial reports
+- Budget planning and monitoring
+- Visual data representation
+- Export capabilities
 
 ### Diary
+A private space for personal reflection:
+- Chronological entry management
+- Rich text formatting
+- Search and filter capabilities
+- Mood tracking
+- Media attachment support
 
-A diary application where to write thoughts, experiences and feelings.
+### Plex Integration
+Connect to your Plex Media Server to manage:
 
-- Main diary page
-    - List of diary entries
-    - Buttons to add, edit, and delete entries
-- Add new entry
-- Edit entry
+**Movie Collection**
+- Complete movie library overview
+- Detailed video/audio specifications
+- Watch status tracking
+- Quality metrics
 
-### Movie Collection
-
-List of Movies from your Plex Media Library with video and audio specifications.
-
-### TV Show Collection
-
-List of TV Series from your Plex Media Library with video specifications.
+**TV Show Collection**
+- Series organization
+- Episode tracking
+- Season overview
+- Technical specifications

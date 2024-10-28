@@ -6,3 +6,6 @@ djangorestframework
 gunicorn
 eventlet
 whitenoise
+django-cors-headers
+django-tailwind
+ollama

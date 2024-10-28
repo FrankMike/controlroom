@@ -25,4 +25,5 @@ urlpatterns = [
     path("media/", include("media.urls"), name="media"),
     path("finance/", include("finance.urls"), name="finance"),
     path("diary/", include("diary.urls"), name="diary"),
+    path("chat/", include("chat.urls"), name="chat"),
 ]

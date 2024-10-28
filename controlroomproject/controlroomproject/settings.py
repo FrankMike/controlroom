@@ -11,15 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os  # , sys
+import os
 
 from dotenv import load_dotenv
 
-# from . import dotenv
-
 load_dotenv()
-
-# dotenv.read_dotenv(sys.modules[__name__])
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,8 +32,8 @@ except KeyError as e:
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-PRODUCTION = True
+DEBUG = True
+# PRODUCTION = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -54,11 +50,15 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "rest_framework",
     "rest_framework.authtoken",
+    "corsheaders",
+    "tailwind",
+    "theme",
     "controlroom",
     "authentication",
     "media",
     "finance",
     "diary",
+    "chat",
 ]
 
 MIDDLEWARE = [
@@ -66,6 +66,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -77,7 +78,9 @@ ROOT_URLCONF = "controlroomproject.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            BASE_DIR / "controlroom" / "templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -89,6 +92,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = "controlroomproject.wsgi.application"
 
@@ -136,8 +140,8 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
+
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "controlroom" / "static",
 ]
@@ -162,3 +166,5 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+
+TAILWIND_APP_NAME = "theme"

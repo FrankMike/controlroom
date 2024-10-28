@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <!-- Display chat history -->
+        <div class="border border-gray-200 p-5 mb-5 min-h-[300px]">
+            {% for message in messages %}
+            <div class="mb-3 p-3 rounded {% if message.role == 'user' %}bg-gray-100{% else %}bg-blue-50{% endif %}">
+                <strong class="font-semibold">{{ message.role|title }}:</strong> {{ message.content }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Chat input form -->
+        <form method="POST" class="flex gap-3">
+            {% csrf_token %}
+            <input type="text" name="message" placeholder="Type your message..." required
+                class="flex-1 p-2.5 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="px-5 py-2.5 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                Send
+            </button>
+        </form>
+        </div>
+    {% else %}
+        <div class="max-w-3xl mx-auto p-5">
+            <h1 class="text-2xl font-bold mb-6">Chat with AI</h1>
+            <p>Please login or register to use this feature.</p>
+        </div>
+    {% endif %}
+{% endblock %}
