@@ -2,24 +2,54 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <!-- Display chat history -->
-        <div class="border border-gray-200 p-5 mb-5 min-h-[300px]">
-            {% for message in messages %}
-            <div class="mb-3 p-3 rounded {% if message.role == 'user' %}bg-gray-100{% else %}bg-blue-50{% endif %}">
-                <strong class="font-semibold">{{ message.role|title }}:</strong> {{ message.content }}
+        <div class="flex">
+            <!-- Sidebar -->
+            <div class="w-64 bg-gray-50 p-4 border-r border-gray-200 min-h-screen">
+                <h2 class="text-lg font-semibold mb-4">Chat Types</h2>
+                <nav class="space-y-2">
+                    <a href="{% url 'chat' %}?type=general" 
+                       class="block p-2 rounded {% if chat_type == 'general' %}bg-blue-100 text-blue-700{% else %}hover:bg-gray-100{% endif %}">
+                        💬 General Assistant
+                    </a>
+                    <a href="{% url 'chat' %}?type=financial" 
+                       class="block p-2 rounded {% if chat_type == 'financial' %}bg-blue-100 text-blue-700{% else %}hover:bg-gray-100{% endif %}">
+                        💰 Financial Advisor
+                    </a>
+                    <a href="{% url 'chat' %}?type=fitness" 
+                       class="block p-2 rounded {% if chat_type == 'fitness' %}bg-blue-100 text-blue-700{% else %}hover:bg-gray-100{% endif %}">
+                        💪 Fitness Trainer
+                    </a>
+                    <a href="{% url 'chat' %}?type=coding" 
+                       class="block p-2 rounded {% if chat_type == 'coding' %}bg-blue-100 text-blue-700{% else %}hover:bg-gray-100{% endif %}">
+                        💻 Coding Assistant
+                    </a>
+                </nav>
             </div>
-            {% endfor %}
-        </div>
 
-        <!-- Chat input form -->
-        <form method="POST" class="flex gap-3">
-            {% csrf_token %}
-            <input type="text" name="message" placeholder="Type your message..." required
-                class="flex-1 p-2.5 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button type="submit" class="px-5 py-2.5 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
-                Send
-            </button>
-        </form>
+            <!-- Main chat area -->
+            <div class="flex-1 p-5">
+                <h1 class="text-2xl font-bold mb-6">{{ chat_title }}</h1>
+                
+                <!-- Display chat history -->
+                <div class="border border-gray-200 p-8 mb-8 min-h-[300px]">
+                    {% for message in messages %}
+                    <div class="mb-4 p-4 rounded {% if message.role == 'user' %}bg-gray-100{% else %}bg-blue-50{% endif %}">
+                        <strong class="font-semibold">{{ message.role|title }}:</strong> {{ message.content }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Chat input form -->
+                <form method="POST" class="flex gap-4">
+                    {% csrf_token %}
+                    <input type="hidden" name="chat_type" value="{{ chat_type }}">
+                    <input type="text" name="message" placeholder="Type your message..." required
+                        class="flex-1 p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                        Send
+                    </button>
+                </form>
+            </div>
         </div>
     {% else %}
         <div class="max-w-3xl mx-auto p-5">
