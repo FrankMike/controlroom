@@ -70,3 +70,13 @@ Connect to your Plex Media Server to manage:
 - Episode tracking
 - Season overview
 - Technical specifications
+
+
+## TODO:
+- Better Chat page style
+    - Markdown visualization from LLM output
+- Better Chat implementation
+    - Code assistant
+    - Fitness assistant
+- Personal Finance improvements
+- Diary improvements
