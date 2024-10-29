@@ -9,3 +9,4 @@ whitenoise
 django-cors-headers
 django-tailwind
 ollama
+psycopg2-binary
