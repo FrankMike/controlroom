@@ -73,8 +73,10 @@ Connect to your Plex Media Server to manage:
 
 
 ## TODO:
-- Better Chat page style
-    - Markdown visualization from LLM output
+- Docker Ollama
+```
+docker exec -it ollama_service ollama pull llama3.2:latest
+```
 - Better Chat implementation
     - Code assistant
     - Fitness assistant

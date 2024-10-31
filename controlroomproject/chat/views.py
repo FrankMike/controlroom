@@ -44,6 +44,8 @@ def chat(request):
             user_message = request.POST.get("message", "")
             if user_message:
                 # Call Ollama API with system prompt based on chat type
+                if "llama3.2" not in ollama.list():
+                    ollama.pull("llama3.2")
                 response = ollama.chat(
                     model="llama3.2",
                     messages=[
