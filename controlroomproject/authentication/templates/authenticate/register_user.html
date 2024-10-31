@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
             <div>
                 <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -10,15 +10,15 @@
             </div>
             <form class="mt-8 space-y-6" action="{% url 'register_user' %}" method="POST">
                 {% csrf_token %}
-                <div class="rounded-md shadow-sm -space-y-px">
+                <div class="rounded-md shadow-sm space-y-4">
                     {% for field in form %}
-                        <div class="mb-4">
+                        <div class="mb-6">
                             <label for="{{ field.id_for_label }}" class="sr-only">{{ field.label }}</label>
                             <input type="{{ field.field.widget.input_type }}"
                                    name="{{ field.name }}"
                                    id="{{ field.id_for_label }}"
                                    placeholder="{{ field.label }}"
-                                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 {% if forloop.first %}rounded-t-md{% elif forloop.last %}rounded-b-md{% endif %} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                   class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 {% if forloop.first %}rounded-t-md{% elif forloop.last %}rounded-b-md{% endif %} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                    {% if field.field.required %}required{% endif %}>
                             {% if field.help_text %}
                                 <p class="mt-2 text-sm text-gray-500">{{ field.help_text|safe }}</p>

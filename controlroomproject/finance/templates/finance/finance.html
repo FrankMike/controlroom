@@ -16,8 +16,8 @@
                             {% csrf_token %}
                             <div class="flex space-x-4">
                                 <input type="text" name="description" placeholder="Description" required class="flex-grow p-2 border rounded">
-                                <input type="number" name="amount" placeholder="Amount" step="0.01" required class="w-32 p-2 border rounded">
-                                <select name="transaction_type" required class="p-2 border rounded">
+                                <input type="number" name="amount" placeholder="Amount" step="0.01" required class="w-32 p-2 px-4 border rounded">
+                                <select name="transaction_type" required class="p-2 px-8 border rounded">
                                     <option value="expense">Expense</option>
                                     <option value="income">Income</option>
                                 </select>
