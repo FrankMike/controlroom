@@ -7,7 +7,7 @@ gunicorn
 eventlet
 whitenoise
 django-cors-headers
-django-tailwind
+django-tailwind[reload]
 ollama
 psycopg2-binary
 django_wait_for_db

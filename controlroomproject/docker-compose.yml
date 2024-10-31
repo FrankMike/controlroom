@@ -1,0 +1,70 @@
+services:
+  db:
+    container_name: postgres_db
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - app-network
+    ports:
+      - "5432:5432"
+
+  ollama:
+    container_name: ollama_service
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:11434/api/tags || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  web:
+    container_name: django_web
+    build: .
+    command: |
+      sh -c '
+        while ! nc -z postgres_db 5432; do
+          echo "Waiting for postgres..."
+          sleep 1
+        done
+        python manage.py tailwind install &&
+        python manage.py tailwind build &&
+        python manage.py collectstatic --noinput &&
+        python manage.py migrate &&
+        gunicorn --workers 3 --bind 0.0.0.0:8000 controlroomproject.wsgi:application
+      '
+    volumes:
+      - .:/controlroomproject
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=controlroomproject.settings_prod
+      - POSTGRES_HOST=postgres_db
+      - OLLAMA_HOST=http://ollama_service:11434
+    depends_on:
+      - db
+      - ollama
+    networks:
+      - app-network
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  ollama_data:

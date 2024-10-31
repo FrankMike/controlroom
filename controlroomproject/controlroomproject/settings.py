@@ -174,3 +174,14 @@ REST_FRAMEWORK = {
 }
 
 TAILWIND_APP_NAME = "theme"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "controlroom", "static"),
+    os.path.join(BASE_DIR, "theme", "static"),
+]
