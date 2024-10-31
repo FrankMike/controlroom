@@ -1,62 +1,92 @@
 {% load static %}
 
-<nav class="flex items-center justify-between p-6 lg:px-8 sticky top-0 bg-white z-50 shadow-sm" aria-label="Global">
-    <div class="flex lg:flex-1">
-        <a href="{% url 'home' %}" class="-m-1.5 p-1.5">
-            <span class="sr-only">Control Room</span>
-            <img src="{% static 'images/controlroom.png' %}" alt="Control Room" class="h-8 w-auto">
-        </a>
-    </div>
-    <div class="flex lg:hidden">
-        <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onclick="toggleMenu()">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
+<nav class="bg-white">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <!-- Mobile menu button-->
+        <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-black hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" onclick="toggleMenu()">
+          <span class="absolute -inset-0.5"></span>
+          <span class="sr-only">Open main menu</span>
+          <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
         </button>
-    </div>
-    {% if user.is_authenticated %}
-        <div id="mobileMenu" class="hidden absolute top-20 left-0 w-full bg-white shadow-md lg:hidden z-40">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="{% url 'diary' %}"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Diary</a>
-                <a href="{% url 'finance' %}"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Finance</a>
-                <a href="{% url 'chat' %}"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Chat</a>
-                <a href="{% url 'movies' %}"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Movies</a>
-                <a href="{% url 'tv' %}"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">TV
-                    Shows</a>
-                <a href="{% url 'logout_user' %}"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Log
-                    out</a>
-            </div>
+      </div>
+      
+      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="flex flex-shrink-0 items-center">
+          <a href="{% url 'home' %}">
+            <img class="h-8 w-auto" src="{% static 'images/controlroom.png' %}" alt="Control Room">
+          </a>
         </div>
-        <div class="hidden lg:flex lg:gap-x-12">
-            <a href="{% url 'diary' %}" class="text-sm font-semibold leading-6 text-gray-900">Diary</a>
-            <a href="{% url 'finance' %}" class="text-sm font-semibold leading-6 text-gray-900">Finance</a>
-            <a href="{% url 'chat' %}" class="text-sm font-semibold leading-6 text-gray-900">Chat</a>
-            <a href="{% url 'movies' %}" class="text-sm font-semibold leading-6 text-gray-900">Movies</a>
-            <a href="{% url 'tv' %}" class="text-sm font-semibold leading-6 text-gray-900">TV Shows</a>
-        </div>
-    {% endif %}
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
         {% if user.is_authenticated %}
-            <a href="{% url 'profile' %}" class="text-sm font-semibold leading-6 text-gray-900 mr-4">My Profile</a>
-            <a href="{% url 'logout_user' %}" class="text-sm font-semibold leading-6 text-gray-900">Log out</a>
-        {% else %}
-            <a href="{% url 'login_user' %}" class="text-sm font-semibold leading-6 text-gray-900 mr-4">Log in</a>
-            <a href="{% url 'register_user' %}" class="text-sm font-semibold leading-6 text-gray-900">Register</a>
+        <div class="hidden sm:ml-6 sm:block">
+          <div class="flex space-x-4">
+            <a href="{% url 'diary' %}" class="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">Diary</a>
+            <a href="{% url 'finance' %}" class="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">Finance</a>
+            <a href="{% url 'chat' %}" class="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">Chat</a>
+            <a href="{% url 'movies' %}" class="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">Movies</a>
+            <a href="{% url 'tv' %}" class="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">TV Shows</a>
+          </div>
+        </div>
         {% endif %}
+      </div>
+
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        {% if user.is_authenticated %}
+        <div class="relative ml-3">
+          <div>
+            <a href="{% url 'profile' %}" class="relative flex rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">
+              My Profile
+            </a>
+          </div>
+        </div>
+        <div class="relative ml-3">
+          <div>
+            <a href="{% url 'logout_user' %}" class="relative flex rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">
+              Log out
+            </a>
+          </div>
+        </div>
+        {% else %}
+        <div class="relative ml-3">
+          <div>
+            <a href="{% url 'login_user' %}" class="relative flex rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">
+              Log in
+            </a>
+          </div>
+        </div>
+        <div class="relative ml-3">
+          <div>
+            <a href="{% url 'register_user' %}" class="relative flex rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-700 hover:text-white">
+              Register
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
     </div>
+  </div>
+
+  <!-- Mobile menu -->
+  {% if user.is_authenticated %}
+  <div class="sm:hidden hidden" id="mobile-menu">
+    <div class="space-y-1 px-2 pb-3 pt-2">
+      <a href="{% url 'diary' %}" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Diary</a>
+      <a href="{% url 'finance' %}" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Finance</a>
+      <a href="{% url 'chat' %}" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Chat</a>
+      <a href="{% url 'movies' %}" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Movies</a>
+      <a href="{% url 'tv' %}" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">TV Shows</a>
+      <a href="{% url 'logout_user' %}" class="block rounded-md px-3 py-2 text-base font-medium text-black hover:bg-gray-700 hover:text-white">Log out</a>
+    </div>
+  </div>
+  {% endif %}
 </nav>
 
 <script>
     function toggleMenu() {
-        const menu = document.getElementById('mobileMenu');
+        const menu = document.getElementById('mobile-menu');
         menu.classList.toggle('hidden');
     }
 </script>

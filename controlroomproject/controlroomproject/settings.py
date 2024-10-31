@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "tailwind",
     "theme",
+    "wait_for_db",
     "controlroom",
     "authentication",
     "media",

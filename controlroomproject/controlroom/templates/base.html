@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="{% static 'css/input.css' %}">
     {% tailwind_css %}
     <style>
@@ -42,21 +41,14 @@
         }
     </style>
 </head>
-<body>
-    <header class="absolute inset-x-0 top-0 z-50">
+<body class="flex flex-col min-h-screen">
+    <header class="flex-none">
         {% include 'navbar.html' %}
     </header>
 
-    <br/>
-    <br/>
-    <br/>
-    <hr/>
-    <br/>
-    <br/>
-
-    {% block content %}
-    {% endblock content %}
-    
-
+    <main class="flex-1 pt-16">
+        {% block content %}
+        {% endblock content %}
+    </main>
 </body>
 </html>

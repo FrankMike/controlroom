@@ -10,3 +10,5 @@ django-cors-headers
 django-tailwind
 ollama
 psycopg2-binary
+django_wait_for_db
+markdown
