@@ -40,7 +40,7 @@
             <ul class="w-full">
                 {% for transaction in transactions %}
                     <li class="mb-2 grid grid-cols-5 items-center">
-                        <span class="text-gray-500">{{ transaction.date|date:"Y-m-d" }}</span>
+                        <span class="text-gray-500">{{ transaction.date|date:"Y-m-d" }}</span> 
                         <span class="col-span-2">{{ transaction.description }}</span>
                         <span class="text-right {% if transaction.transaction_type == 'expense' %}text-red-500{% else %}text-green-500{% endif %}">
                             {% if transaction.transaction_type == 'expense' %}-{% else %}+{% endif %}${{ transaction.amount }}
